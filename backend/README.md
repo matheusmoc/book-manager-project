@@ -117,7 +117,7 @@ O backend foi desenvolvido seguindo o padrão de **Arquitetura em Camadas** (Lay
 
 #### Camada de Persistência (Repository/ORM)
 - **Tecnologia**: TypeORM
-- **Responsabilidade**: Acesso ao banco de dados e operações CRUD
+- **Responsabilidade**: Acesso ao banco de dados e operações CRUD conhecida também como camada de persistencia dos dados
 
 ---
 
@@ -503,5 +503,100 @@ Authorization: Bearer <seu_token_jwt>
 ```
 
 ---
+
+## 🧪 Testes E2E
+
+### Fluxo de Testes Implementado
+
+O projeto possui testes end-to-end (E2E) completos que validam todo o fluxo de gerenciamento de livros, incluindo autenticação.
+
+**Arquivo**: `test/books.e2e-spec.ts`
+
+### 🔄 Fluxo Completo dos Testes
+
+```
+1. SETUP (beforeAll)
+      Inicializa aplicação NestJS
+      Configura ValidationPipe
+      Registra usuário de teste (testuser)
+      Faz login e obtém token JWT
+   
+2. POST /books/create
+      Cria livro com sucesso (201)
+      Valida dados inválidos (400)
+      Valida falta de autenticação (401)
+   
+3. GET /books
+      Lista todos os livros
+      Filtra livros por título (?title=Clean)
+   
+4. GET /books/:id
+      Busca livro específico por ID
+      Retorna 404 para ID inexistente
+   
+5. PATCH /books/:id
+      Atualiza livro existente
+      Retorna 404 ao atualizar ID inexistente
+   
+6. DELETE /books/:id
+      Remove livro existente
+      Retorna 404 ao tentar remover novamente
+   
+7. CLEANUP (afterAll)
+      Fecha aplicação e limpa recursos
+```
+
+### Executar os Testes
+
+```bash
+# Todos os testes E2E
+npm run test:e2e
+
+# Apenas testes de livros
+npm run test:e2e -- books.e2e-spec
+
+# Com cobertura
+npm run test:cov
+
+# Em modo watch
+npm run test:watch
+```
+
+### Exemplo de Saída
+
+```
+PASS  test/books.e2e-spec.ts
+  Books Flow (e2e)
+    POST /books/create
+      ✓ deve criar um novo livro com sucesso (27 ms)
+      ✓ deve retornar erro 400 ao enviar dados inválidos (7 ms)
+      ✓ deve retornar erro 401 sem autenticação (6 ms)
+    GET /books
+      ✓ deve listar todos os livros (7 ms)
+      ✓ deve filtrar livros por título (7 ms)
+    GET /books/:id
+      ✓ deve buscar um livro específico por id (8 ms)
+      ✓ deve retornar erro 404 para id inexistente (8 ms)
+    PATCH /books/:id
+      ✓ deve atualizar um livro existente (49 ms)
+      ✓ deve retornar erro 404 ao atualizar id inexistente (9 ms)
+    DELETE /books/:id
+      ✓ deve remover um livro existente (9 ms)
+      ✓ deve retornar erro 404 ao tentar remover novamente (6 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       11 passed, 11 total
+Time:        2.765 s
+```
+
+### O que os Testes Cobrem
+
+✅ **Autenticação completa** - Registro, login e uso de token JWT  
+✅ **CRUD completo** - Create, Read, Update, Delete  
+✅ **Validações** - Dados inválidos, campos obrigatórios  
+✅ **Autorização** - Rotas protegidas por JWT  
+✅ **Filtros** - Busca por título  
+✅ **Tratamento de erros** - 404, 400, 401  
+✅ **Fluxo realista** - Simula uso real da API
 
 ---

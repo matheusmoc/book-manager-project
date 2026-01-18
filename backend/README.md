@@ -500,11 +500,10 @@ Authorization: Bearer <seu_token_jwt>
   "message": "Livro 999 não encontrado",
   "error": "Not Found"
 }
+
 ```
 
----
-
-## 🧪 Testes E2E
+## Testes E2E
 
 ### Fluxo de Testes Implementado
 

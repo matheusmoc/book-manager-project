@@ -414,7 +414,7 @@ GET /books/1
 ```json
 {
   "statusCode": 404,
-  "message": "Livro com ID 999 não encontrado",
+  "message": "Livro 999 não encontrado",
   "error": "Not Found"
 }
 ```
@@ -497,7 +497,7 @@ Authorization: Bearer <seu_token_jwt>
 ```json
 {
   "statusCode": 404,
-  "message": "Livro com ID 999 não encontrado",
+  "message": "Livro 999 não encontrado",
   "error": "Not Found"
 }
 ```

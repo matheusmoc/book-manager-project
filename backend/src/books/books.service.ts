@@ -29,7 +29,7 @@ export class BooksService {
   async findOne(id: number): Promise<Book> {
     const book = await this.booksRepository.findOneBy({ id });
     if (!book) {
-      throw new NotFoundException(`Livro com ID ${id} não encontrado`);
+      throw new NotFoundException(`Livro ${id} não encontrado`);
     }
     return book;
   }
@@ -43,7 +43,7 @@ export class BooksService {
   async remove(id: number): Promise<void> {
     const result = await this.booksRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`Livro com ID ${id} não encontrado`);
+      throw new NotFoundException(`Livro ${id} não encontrado`);
     }
   }
 }

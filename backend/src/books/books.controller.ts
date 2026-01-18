@@ -12,15 +12,10 @@ import { ApiBearerAuth, ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger'
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Criar um novo livro' })
-  create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
-  }
 
   @Post('create')
-  @ApiOperation({ summary: 'Criar um novo livro (Alias)' })
-  createAlias(@Body() createBookDto: CreateBookDto) {
+  @ApiOperation({ summary: 'Criar um novo livro' })
+  create(@Body() createBookDto: CreateBookDto) {
     return this.booksService.create(createBookDto);
   }
 

@@ -152,7 +152,7 @@ Serviços disponíveis:
 - Loading e error states
 
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Erro: Cannot connect to API
 **Solução:** Verifique se o backend está rodando na porta 3000
@@ -177,53 +177,3 @@ npm run dev -- -p 3002
 
 - Backend: [../backend/README.md](../backend/README.md)
 - API Swagger: http://localhost:3000/api
-
-
-## 🚀 Tecnologias
-
-- **Next.js 14** - Framework React
-- **TypeScript** - Tipagem estática
-- **TailwindCSS** - Estilização
-- **Axios** - Cliente HTTP
-- **React Hot Toast** - Notificações
-
-
-## Páginas
-
-- `/login` - Login de usuários
-- `/register` - Registro de novos usuários
-- `/books` - Lista de livros
-- `/books/new` - Criar novo livro
-- `/books/[id]/edit` - Editar livro
-
-## Autenticação
-
-O sistema usa JWT tokens que são armazenados no localStorage. Ao fazer login, o token é automaticamente incluído em todas as requisições para a API.
-
-## Interface
-
-A interface foi construída com TailwindCSS seguindo princípios modernos de design:
-
-- Layout responsivo com sidebar fixa
-- Cards para exibição de livros
-- Formulários validados
-- Feedback visual com toasts
-- Busca em tempo real por título
-
-
-## Funcionalidades
-
-    Autenticação com JWT  
-    CRUD completo de livros  
-    Busca por título  
-    Interface responsiva  
-    Notificações em tempo real  
-    Proteção de rotas  
-    Feedback visual de loading  
-
-
-## Documentação
-
-- [Next.js](https://nextjs.org/docs)
-- [TailwindCSS](https://tailwindcss.com/docs)
-- [TypeScript](https://www.typescriptlang.org/docs)

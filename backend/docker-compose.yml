@@ -6,7 +6,7 @@ services:
       - '3000:3000'
     environment:
       PORT: 3000
-      JWT_SECRET: super_secret_key_change_me
+      JWT_SECRET: secret
       DATABASE_TYPE: postgres
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432

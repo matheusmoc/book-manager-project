@@ -21,12 +21,13 @@
 
 @layer components {
   .card {
-    @apply rounded-xl bg-white shadow-soft border border-gray-100;
+    @apply rounded-xl bg-white p-6 shadow-soft border border-gray-100;
     @apply dark:bg-gray-800 dark:border-gray-700;
+    @apply sm:p-8;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5;
+    @apply card transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5;
   }
 
   .btn-primary {

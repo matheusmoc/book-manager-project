@@ -53,47 +53,60 @@ export default function BooksLayout({
       
       {/* Sidebar */}
       <aside
-        className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden bg-gray-900 duration-300 ease-linear lg:static lg:translate-x-0 ${
+        className={`fixed left-0 top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden bg-gray-900 shadow-2xl transition-transform duration-300 ease-in-out lg:static lg:translate-x-0 ${
           sidebarOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className="flex h-full flex-col justify-between">
           <div>
             {/* Logo */}
-            <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-              <Link href="/books" className="flex items-center gap-2">
-                <svg className="h-8 w-8 text-primary-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-                <span className="text-xl font-bold text-white">Book Manager</span>
+            <div className="flex items-center justify-between gap-2 border-b border-gray-800/50 px-6 py-6 backdrop-blur-sm">
+              <Link href="/books" className="flex items-center gap-3 group">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-600 shadow-lg transition-transform group-hover:scale-110">
+                  <svg className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <div>
+                  <span className="block text-lg font-bold text-white">Book Manager</span>
+                  <span className="block text-xs text-gray-400">Gerencie seus livros</span>
+                </div>
               </Link>
               <button
                 onClick={() => setSidebarOpen(false)}
                 aria-label="Fechar menu"
-                className="block lg:hidden text-white"
+                className="block rounded-lg p-2 text-gray-400 transition-colors hover:bg-gray-800 hover:text-white lg:hidden"
               >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
 
             {/* Navigation */}
-            <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
-              <ul className="mb-6 flex flex-col gap-1.5">
+            <nav className="mt-6 px-4">
+              <div className="mb-2 px-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500">Menu</p>
+              </div>
+              <ul className="flex flex-col gap-2">
                 {navItems.map((item) => (
                   <li key={item.href}>
                     <Link
                       href={item.href}
                       onClick={() => setSidebarOpen(false)}
-                      className={`group relative flex items-center gap-2.5 rounded-md px-4 py-2.5 font-medium duration-300 ease-in-out ${
+                      className={`group relative flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all ${
                         pathname === item.href
-                          ? 'bg-gray-800 text-white'
-                          : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                          ? 'bg-primary-600 text-white'
+                          : 'text-gray-300 hover:bg-gray-800/50 hover:text-white'
                       }`}
                     >
-                      {item.icon}
-                      {item.label}
+                      <span className={`transition-transform ${pathname === item.href ? 'scale-110' : 'group-hover:scale-110'}`}>
+                        {item.icon}
+                      </span>
+                      <span>{item.label}</span>
+                      {pathname === item.href && (
+                        <span className="absolute right-4 h-2 w-2 rounded-full bg-white"></span>
+                      )}
                     </Link>
                   </li>
                 ))}
@@ -101,16 +114,29 @@ export default function BooksLayout({
             </nav>
           </div>
 
-          {/* Logout */}
-          <div className="border-t border-gray-800 px-6 py-4">
+          {/* User Info & Logout */}
+          <div className="border-t border-gray-800/50 p-4">
+            <div className="mb-3 rounded-xl bg-gray-800/40 p-4 backdrop-blur-sm">
+              <div className="mb-1 flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary-600">
+                  <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <div className="flex-1">
+                  <p className="text-sm font-semibold text-white">Usuário</p>
+                  <p className="text-xs text-gray-400">Administrador</p>
+                </div>
+              </div>
+            </div>
             <button
               onClick={handleLogout}
-              className="flex w-full items-center gap-2.5 rounded-md px-4 py-2.5 font-medium text-gray-300 duration-300 ease-in-out hover:bg-gray-800 hover:text-white"
+              className="flex w-full items-center gap-3 rounded-xl px-4 py-3 font-medium text-gray-300 transition-all hover:bg-danger-600 hover:text-white"
             >
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              Sair
+              <span>Sair da Conta</span>
             </button>
           </div>
         </div>
@@ -120,44 +146,48 @@ export default function BooksLayout({
       {sidebarOpen && (
         <div
           onClick={() => setSidebarOpen(false)}
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden"
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm transition-opacity lg:hidden"
         />
       )}
 
       {/* Main Content */}
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Header */}
-        <header className="sticky top-0 z-30 flex w-full bg-white drop-shadow-1 dark:bg-gray-800">
-          <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
-            <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
+        <header className="sticky top-0 z-30 flex w-full border-b border-gray-200 bg-white/80 shadow-sm backdrop-blur-md dark:border-gray-700 dark:bg-gray-800/80">
+          <div className="flex flex-grow items-center justify-between px-4 py-4 md:px-6 2xl:px-11">
+            <div className="flex items-center gap-3">
               {/* Hamburger Toggle BTN */}
               <button
                 aria-label="Abrir menu"
                 onClick={() => setSidebarOpen(!sidebarOpen)}
-                className="z-50 block rounded-sm border border-stroke bg-white p-1.5 shadow-sm dark:border-gray-700 dark:bg-gray-800 lg:hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 lg:hidden"
               >
-                <svg className="h-5.5 w-5.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="h-5 w-5 text-gray-700 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
               </button>
+
+              <div>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                  Gerenciamento de Livros
+                </h1>
+                <p className="hidden text-sm text-gray-600 dark:text-gray-400 sm:block">
+                  Organize e gerencie sua biblioteca pessoal
+                </p>
+              </div>
             </div>
 
-            <div className="hidden sm:block">
-              <h1 className="text-title-md2 font-semibold text-gray-900 dark:text-white">
-                Gerenciamento de Livros
-              </h1>
-            </div>
-
-            <div className="flex items-center gap-3 2xsm:gap-7">
-              <span className="text-sm text-gray-600 dark:text-gray-300">
-                Bem-vindo!
-              </span>
+            <div className="flex items-center gap-3">
+              <div className="hidden items-center gap-2 rounded-lg bg-primary-50 px-4 py-2 dark:bg-primary-900/20 sm:flex">
+                <div className="h-2 w-2 rounded-full bg-success-500 animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Online</span>
+              </div>
             </div>
           </div>
         </header>
 
         {/* Page Content */}
-        <main className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+        <main className="mx-auto w-full max-w-screen-2xl p-4 md:p-6 2xl:p-10">
           {children}
         </main>
       </div>

@@ -60,7 +60,6 @@ export default function BooksPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-title-md2 font-semibold text-gray-900 dark:text-white">
           Meus Livros
@@ -76,7 +75,6 @@ export default function BooksPage() {
         </Link>
       </div>
 
-      {/* Search */}
       <div className="rounded-lg bg-white p-5 shadow-md dark:bg-gray-800">\n        <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -93,7 +91,6 @@ export default function BooksPage() {
         </div>
       </div>
 
-      {/* Books Grid */}
       {filteredBooks.length === 0 ? (
         <div className="rounded-lg bg-white p-12 text-center shadow-md dark:bg-gray-800">
           <svg className="mx-auto mb-4 h-16 w-16 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">

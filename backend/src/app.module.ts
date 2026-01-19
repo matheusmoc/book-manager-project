@@ -17,6 +17,20 @@ import { Book } from './books/entities/book.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
+        const databaseUrl = configService.get<string>('DATABASE_URL');
+        
+        if (databaseUrl) {
+          return {
+            type: 'postgres',
+            url: databaseUrl,
+            ssl: databaseUrl.includes('sslmode=require') || configService.get<string>('PGSSLMODE') === 'require'
+              ? { rejectUnauthorized: false }
+              : false,
+            entities: [User, Book],
+            synchronize: true, 
+          };
+        }
+        
         // Support AWS PostgreSQL env vars (PGHOST, PGUSER, etc) or custom vars
         const host = configService.get<string>('PGHOST') || configService.get<string>('DATABASE_HOST');
         const port = parseInt(configService.get<string>('PGPORT') || configService.get<string>('DATABASE_PORT') || '5432', 10);

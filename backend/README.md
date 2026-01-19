@@ -603,7 +603,7 @@ Time:        2.765 s
 
 ### Pré-requisitos
 - Conta na [Vercel](https://vercel.com)
-- PostgreSQL AWS Aurora configurado (ou outro PostgreSQL)
+- PostgreSQL na plataforma do Neon (ou outro PostgreSQL)
 - Repositório no GitHub
 
 

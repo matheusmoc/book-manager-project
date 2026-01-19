@@ -2,7 +2,7 @@
 
 Frontend moderno com Next.js 14 e TailwindCSS para o sistema de gerenciamento de livros.
 
-## 🚀 Tecnologias
+## Tecnologias
 
 - **Next.js 14** - Framework React com App Router
 - **TypeScript** - Tipagem estática
@@ -26,6 +26,8 @@ NEXT_PUBLIC_API_URL=http://localhost:3000
 
 ## Executar
 
+### Desenvolvimento Local
+
 ```bash
 # Desenvolvimento (porta 3001)
 npm run dev
@@ -39,7 +41,20 @@ npm start
 
 O frontend estará disponível em: http://localhost:3001
 
-## 📱 Estrutura de Páginas
+### Com Docker
+
+```bash
+# Build da imagem
+docker build -t book-manager-frontend .
+```
+
+```bash
+docker-compose up -d
+```
+
+O frontend estará disponível em: http://localhost:3001
+
+## Estrutura de Páginas
 
 - `/login` - Autenticação de usuários
 - `/register` - Cadastro de novos usuários
@@ -47,7 +62,7 @@ O frontend estará disponível em: http://localhost:3001
 - `/books/new` - Criar novo livro (protegida)
 - `/books/[id]/edit` - Editar livro (protegida)
 
-## 🎨 Design System
+## Design System
 
 ### Padrão TailAdmin
 
@@ -93,16 +108,36 @@ JWT tokens são gerenciados automaticamente:
 
 ## Integração com Backend
 
+### Desenvolvimento Local
+
 Certifique-se de que o backend está rodando:
 
 ```bash
 cd ../backend
-docker-compose up -d
-# ou
 npm run start:dev
 ```
 
 API disponível em: `http://localhost:3000`
+
+### Com Docker
+
+```bash
+# A partir da raiz do projeto, suba todos os serviços
+cd ..
+docker-compose up -d
+
+# Verificar logs
+docker-compose logs -f frontend
+docker-compose logs -f backend
+
+# Parar serviços
+docker-compose down
+```
+
+Serviços disponíveis:
+- Frontend: http://localhost:3001
+- Backend: http://localhost:3000
+- API Docs: http://localhost:3000/api
 
 ## Boas Práticas Implementadas
 

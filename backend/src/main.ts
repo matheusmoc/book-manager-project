@@ -29,6 +29,20 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.init();
+  return app;
 }
-bootstrap();
+
+// Para desenvolvimento local
+if (require.main === module) {
+  bootstrap().then(app => {
+    app.listen(process.env.PORT ?? 3000);
+  });
+}
+
+// Para Vercel
+export default async (req, res) => {
+  const app = await bootstrap();
+  const server = app.getHttpAdapter().getInstance();
+  return server(req, res);
+};

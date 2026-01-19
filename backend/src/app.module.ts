@@ -20,12 +20,15 @@ import { Book } from './books/entities/book.entity';
         const databaseUrl = configService.get<string>('DATABASE_URL');
         
         if (databaseUrl) {
+          const urlObj = new URL(databaseUrl);
+          const requireSSL = urlObj.searchParams.get('sslmode') === 'require' || databaseUrl.includes('sslmode=require');
+          urlObj.searchParams.delete('sslmode');
+          const cleanUrl = urlObj.toString();
+          
           return {
             type: 'postgres',
-            url: databaseUrl,
-            ssl: databaseUrl.includes('sslmode=require')
-              ? { rejectUnauthorized: false }
-              : false,
+            url: cleanUrl,
+            ssl: requireSSL ? { rejectUnauthorized: false } : false,
             entities: [User, Book],
             synchronize: true,
           };

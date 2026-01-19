@@ -23,42 +23,39 @@ import { Book } from './books/entities/book.entity';
           return {
             type: 'postgres',
             url: databaseUrl,
-            ssl: databaseUrl.includes('sslmode=require') || configService.get<string>('PGSSLMODE') === 'require'
+            ssl: databaseUrl.includes('sslmode=require')
               ? { rejectUnauthorized: false }
               : false,
             entities: [User, Book],
-            synchronize: true, 
+            synchronize: true,
           };
         }
         
-        // Support AWS PostgreSQL env vars (PGHOST, PGUSER, etc) or custom vars
-        const host = configService.get<string>('PGHOST') || configService.get<string>('DATABASE_HOST');
-        const port = parseInt(configService.get<string>('PGPORT') || configService.get<string>('DATABASE_PORT') || '5432', 10);
-        const username = configService.get<string>('PGUSER') || configService.get<string>('DATABASE_USERNAME');
-        const password = configService.get<string>('PGPASSWORD') || configService.get<string>('DATABASE_PASSWORD');
-        const database = configService.get<string>('PGDATABASE') || configService.get<string>('DATABASE_NAME');
-        const ssl = configService.get<string>('PGSSLMODE') === 'require';
-        
+        const host = configService.get<string>('DATABASE_HOST');
+        const port = parseInt(configService.get<string>('DATABASE_PORT') || '5432', 10);
+        const username = configService.get<string>('DATABASE_USERNAME');
+        const password = configService.get<string>('DATABASE_PASSWORD');
+        const database = configService.get<string>('DATABASE_NAME');
         const type = configService.get<string>('DATABASE_TYPE') || (host ? 'postgres' : 'sqlite');
         
         if (type === 'postgres' && host) {
-            return {
-                type: 'postgres',
-                host,
-                port,
-                username,
-                password,
-                database,
-                ssl: ssl ? { rejectUnauthorized: false } : false,
-                entities: [User, Book],
-                synchronize: true, // Only for development
-            };
-        }
-        return {
-            type: 'sqlite',
-            database: database || 'database.sqlite',
+          return {
+            type: 'postgres',
+            host,
+            port,
+            username,
+            password,
+            database,
             entities: [User, Book],
             synchronize: true,
+          };
+        }
+        
+        return {
+          type: 'sqlite',
+          database: database || 'database.sqlite',
+          entities: [User, Book],
+          synchronize: true,
         };
       },
       inject: [ConfigService],

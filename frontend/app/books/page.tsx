@@ -75,7 +75,8 @@ export default function BooksPage() {
         </Link>
       </div>
 
-      <div className="rounded-lg bg-white p-5 shadow-md dark:bg-gray-800">\n        <div className="relative">
+      <div className="rounded-lg bg-white p-5 shadow-md dark:bg-gray-800">       
+        <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

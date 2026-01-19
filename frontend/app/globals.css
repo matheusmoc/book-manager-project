@@ -2,28 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @layer base {
+  * {
+    @apply border-gray-200 dark:border-gray-700;
+  }
+
   body {
-    @apply bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white;
+    @apply bg-gradient-to-br from-gray-50 to-gray-100 text-gray-900 antialiased;
+    @apply dark:from-gray-900 dark:to-gray-950 dark:text-gray-50;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold text-gray-900 dark:text-white;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl bg-white shadow-soft border border-gray-100;
+    @apply dark:bg-gray-800 dark:border-gray-700;
+  }
+
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-medium hover:-translate-y-0.5;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary-600 to-primary-500;
+    @apply px-6 py-2.5 text-sm font-medium text-white shadow-sm;
+    @apply transition-all duration-200 hover:from-primary-700 hover:to-primary-600 hover:shadow-md;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:from-primary-600;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg;
+    @apply border border-gray-300 bg-white px-6 py-2.5 text-sm font-medium text-gray-700;
+    @apply transition-all duration-200 hover:bg-gray-50 hover:border-gray-400;
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2;
+    @apply dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-gray-900;
+    @apply transition-colors duration-200;
+    @apply focus:border-primary-500 focus:ring-2 focus:ring-primary-200 focus:outline-none;
+    @apply dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:ring-primary-900;
+    @apply placeholder:text-gray-400 dark:placeholder:text-gray-500;
   }
 }
 
 @layer utilities {
-  /* Custom TailAdmin utilities */
-  .drop-shadow-1 {
-    filter: drop-shadow(0px 1px 0px #e2e8f0);
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
   }
 
-  .drop-shadow-2 {
-    filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.12));
+  .shadow-soft {
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.05);
   }
 
-  .shadow-1 {
-    box-shadow: 0px 0px 2px rgba(145, 158, 171, 0.2), 0px 12px 24px -4px rgba(145, 158, 171, 0.12);
+  .shadow-medium {
+    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.08);
   }
 
-  .shadow-2 {
-    box-shadow: 0px 0px 2px rgba(145, 158, 171, 0.24), 0px 20px 40px -4px rgba(145, 158, 171, 0.24);
+  .shadow-hard {
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.12);
   }
 
   .text-title-md2 {

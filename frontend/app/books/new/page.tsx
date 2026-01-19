@@ -56,10 +56,10 @@ export default function NewBookPage() {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="mb-5">
+      <div className="mb-6">
         <Link
           href="/books"
-          className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+          className="inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition-colors hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400"
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -68,22 +68,27 @@ export default function NewBookPage() {
         </Link>
       </div>
 
-      <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 sm:p-8">
-        <div className="mb-6 flex items-center gap-3">
-          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary-100 dark:bg-primary-900">
-            <svg className="h-6 w-6 text-primary-600 dark:text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div className="card">
+        <div className="mb-8 flex items-center gap-4">
+          <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-medium">
+            <svg className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Novo Livro
-          </h1>
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              Novo Livro
+            </h1>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+              Adicione um novo livro à sua coleção
+            </p>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="title" className="mb-2.5 block text-sm font-medium text-gray-900 dark:text-white">
-              Título *
+              Título <span className="text-danger-500">*</span>
             </label>
             <input
               type="text"
@@ -92,14 +97,14 @@ export default function NewBookPage() {
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+              className="input"
               placeholder="Digite o título do livro"
             />
           </div>
 
           <div>
             <label htmlFor="author" className="mb-2.5 block text-sm font-medium text-gray-900 dark:text-white">
-              Autor *
+              Autor <span className="text-danger-500">*</span>
             </label>
             <input
               type="text"
@@ -108,7 +113,7 @@ export default function NewBookPage() {
               value={formData.author}
               onChange={handleChange}
               required
-              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+              className="input"
               placeholder="Digite o nome do autor"
             />
           </div>
@@ -125,7 +130,7 @@ export default function NewBookPage() {
               onChange={handleChange}
               min="1000"
               max="2100"
-              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+              className="input"
               placeholder="Ex: 2024"
             />
           </div>
@@ -140,7 +145,7 @@ export default function NewBookPage() {
               value={formData.description}
               onChange={handleChange}
               rows={4}
-              className="w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-3 text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+              className="input resize-none"
               placeholder="Digite uma breve descrição do livro"
             />
           </div>
@@ -149,7 +154,7 @@ export default function NewBookPage() {
             <button
               type="submit"
               disabled={loading}
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary-600 px-6 py-3 font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:cursor-not-allowed disabled:opacity-50"
+              className="btn-primary flex flex-1 items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {loading ? (
                 <>
@@ -168,7 +173,7 @@ export default function NewBookPage() {
 
             <Link
               href="/books"
-              className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-6 py-3 font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
+              className="btn-secondary flex flex-1 items-center justify-center gap-2"
             >
               Cancelar
             </Link>

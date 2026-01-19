@@ -599,3 +599,95 @@ Time:        2.765 s
 ✅ **Fluxo realista** - Simula uso real da API
 
 ---
+## 🚀 Deploy na Vercel
+
+### Pré-requisitos
+- Conta na [Vercel](https://vercel.com)
+- PostgreSQL AWS Aurora configurado (ou outro PostgreSQL)
+- Repositório no GitHub
+
+### 1. Configure as Variáveis de Ambiente na Vercel
+
+Acesse o dashboard do projeto e adicione:
+
+#### AWS Aurora PostgreSQL (Automático via Integration)
+```bash
+PGHOST=your-db.rds.amazonaws.com
+PGPORT=5432
+PGUSER=postgres
+PGPASSWORD=your-password
+PGDATABASE=postgres
+PGSSLMODE=require
+AWS_REGION=us-east-1
+AWS_ACCOUNT_ID=your-account-id
+AWS_RESOURCE_ARN=arn:aws:rds:...
+AWS_ROLE_ARN=arn:aws:iam:...
+```
+
+#### Outras Variáveis Obrigatórias
+```bash
+JWT_SECRET=your-super-secret-jwt-key-production
+NODE_ENV=production
+```
+
+### 2. Deploy via CLI
+
+```bash
+# Instalar Vercel CLI
+npm install -g vercel
+
+# Login
+vercel login
+
+# Deploy
+cd backend
+vercel --prod
+```
+
+### 3. Deploy via GitHub (Recomendado)
+
+1. Conecte seu repositório no dashboard da Vercel
+2. Configure o **Root Directory** para `backend`
+3. As variáveis de ambiente já estarão configuradas
+4. Deploy automático em cada push!
+
+### 4. Testar o Deploy
+
+```bash
+# Sua API estará disponível em:
+https://your-project.vercel.app
+
+# Swagger UI:
+https://your-project.vercel.app/api
+
+# Testar endpoint:
+curl https://your-project.vercel.app/auth/login \
+  -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"username":"test","password":"test123"}'
+```
+
+### Configuração Automática
+
+O projeto já está configurado para Vercel:
+- ✅ **vercel.json** - Configuração de build e rotas
+- ✅ **app.module.ts** - Suporte a variáveis AWS (PGHOST, PGUSER, etc)
+- ✅ **main.ts** - Adaptado para serverless functions
+- ✅ **.vercelignore** - Otimização de build
+
+### Troubleshooting
+
+**Erro: Cannot connect to database**
+- Verifique se o PostgreSQL está acessível publicamente
+- Confirme as variáveis PGHOST, PGUSER, PGPASSWORD
+- Verifique o security group da AWS (porta 5432)
+
+**Erro: Module not found**
+- Execute `npm install` localmente primeiro
+- Verifique se todas as dependências estão no `package.json`
+
+**Erro: Function timeout**
+- Aumente o timeout nas configurações da Vercel
+- Otimize queries pesadas no banco de dados
+
+---

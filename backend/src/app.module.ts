@@ -17,22 +17,32 @@ import { Book } from './books/entities/book.entity';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
-        const type = configService.get<string>('DATABASE_TYPE') || 'sqlite';
-        if (type === 'postgres') {
+        // Support AWS PostgreSQL env vars (PGHOST, PGUSER, etc) or custom vars
+        const host = configService.get<string>('PGHOST') || configService.get<string>('DATABASE_HOST');
+        const port = parseInt(configService.get<string>('PGPORT') || configService.get<string>('DATABASE_PORT') || '5432', 10);
+        const username = configService.get<string>('PGUSER') || configService.get<string>('DATABASE_USERNAME');
+        const password = configService.get<string>('PGPASSWORD') || configService.get<string>('DATABASE_PASSWORD');
+        const database = configService.get<string>('PGDATABASE') || configService.get<string>('DATABASE_NAME');
+        const ssl = configService.get<string>('PGSSLMODE') === 'require';
+        
+        const type = configService.get<string>('DATABASE_TYPE') || (host ? 'postgres' : 'sqlite');
+        
+        if (type === 'postgres' && host) {
             return {
                 type: 'postgres',
-                host: configService.get<string>('DATABASE_HOST'),
-                port: parseInt(configService.get<any>('DATABASE_PORT'), 10),
-                username: configService.get<string>('DATABASE_USERNAME'),
-                password: configService.get<string>('DATABASE_PASSWORD'),
-                database: configService.get<string>('DATABASE_NAME'),
+                host,
+                port,
+                username,
+                password,
+                database,
+                ssl: ssl ? { rejectUnauthorized: false } : false,
                 entities: [User, Book],
                 synchronize: true, // Only for development
             };
         }
         return {
             type: 'sqlite',
-            database: configService.get<string>('DATABASE_NAME'),
+            database: database || 'database.sqlite',
             entities: [User, Book],
             synchronize: true,
         };

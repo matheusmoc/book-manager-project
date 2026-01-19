@@ -618,21 +618,3 @@ vercel login
 cd backend
 vercel --prod
 ```
-
-
-### Troubleshooting
-
-**Erro: Cannot connect to database**
-- Verifique se o PostgreSQL está acessível publicamente
-- Confirme as variáveis PGHOST, PGUSER, PGPASSWORD
-- Verifique o security group da AWS (porta 5432)
-
-**Erro: Module not found**
-- Execute `npm install` localmente primeiro
-- Verifique se todas as dependências estão no `package.json`
-
-**Erro: Function timeout**
-- Aumente o timeout nas configurações da Vercel
-- Otimize queries pesadas no banco de dados
-
----

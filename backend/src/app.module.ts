@@ -22,18 +22,19 @@ import { Book } from './books/entities/book.entity';
         if (databaseUrl) {
           const urlObj = new URL(databaseUrl);
           const requireSSL = urlObj.searchParams.get('sslmode') === 'require' || databaseUrl.includes('sslmode=require');
-          urlObj.searchParams.delete('sslmode');
-          const cleanUrl = urlObj.toString();
           
           return {
             type: 'postgres',
-            url: cleanUrl,
+            host: urlObj.hostname,
+            port: parseInt(urlObj.port) || 5432,
+            username: decodeURIComponent(urlObj.username),
+            password: decodeURIComponent(urlObj.password),
+            database: urlObj.pathname.slice(1),
             ssl: requireSSL ? { rejectUnauthorized: false } : false,
             entities: [User, Book],
             synchronize: true,
           };
         }
-        
         const host = configService.get<string>('DATABASE_HOST');
         const port = parseInt(configService.get<string>('DATABASE_PORT') || '5432', 10);
         const username = configService.get<string>('DATABASE_USERNAME');
